@@ -215,7 +215,7 @@ with tab0:
             "Observed rows": int(p["is_observed"].sum()) if "is_observed" in p else 0,
         })
     if rows:
-        st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+        st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
     else:
         st.warning("No data matches the current filter settings.")
 
@@ -231,7 +231,7 @@ with tab0:
     if geo_rows:
         geo_df = pd.DataFrame(geo_rows)
         geo_pivot = geo_df.pivot_table(index="Source", columns="Match level", values="Count", fill_value=0).reset_index()
-        st.dataframe(geo_pivot, hide_index=True, width="stretch")
+        st.dataframe(geo_pivot, hide_index=True, use_container_width=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # TAB 1 — Multi-Source Volume Trends
@@ -361,13 +361,13 @@ with tab3:
                 )
                 .properties(height=450)
             )
-            st.altair_chart(conv_heatmap, width="stretch")
+            st.altair_chart(conv_heatmap, use_container_width=True)
 
             st.subheader("Peak periods (convergence >= threshold)")
             conv_thresh = st.slider("Minimum convergence score:", 1, 5, 3, key="t3_thresh")
             peaks = conv_long[conv_long["convergence_score"] >= conv_thresh].sort_values(["convergence_score", "year_month"], ascending=[False, True])
             st.caption(f"{len(peaks)} cells with convergence >= {conv_thresh}")
-            st.dataframe(peaks, hide_index=True, height=300, width="stretch")
+            st.dataframe(peaks, hide_index=True, height=300, use_container_width=True)
         else:
             st.info("No convergence data to render.")
 
@@ -464,13 +464,13 @@ with tab4:
                     tooltip=["year_month", alt.Tooltip("rolling:Q", format=".1f", title="Rolling mean")],
                 )
             )
-            st.altair_chart((bar4 + line4).resolve_scale(y="shared"), width="stretch")
+            st.altair_chart((bar4 + line4).resolve_scale(y="shared"), use_container_width=True)
 
             st.subheader("Peak periods by region")
             peak_thresh4 = st.slider("Minimum convergence:", 1, 5, 2, key="t4_thresh")
             peak_table = conv_long4[conv_long4["score"] >= peak_thresh4].sort_values(["score", "year_month"], ascending=[False, True]).rename(columns={"score": "convergence_score"})
             st.caption(f"{len(peak_table)} ADM1-months with convergence >= {peak_thresh4}")
-            st.dataframe(peak_table[["year_month", "ADM1_EN", "convergence_score"]], hide_index=True, height=400, width="stretch")
+            st.dataframe(peak_table[["year_month", "ADM1_EN", "convergence_score"]], hide_index=True, height=400, use_container_width=True)
             
             st.session_state['peak_table_from_t4'] = peak_table
 
