@@ -47,9 +47,9 @@ def get_openai_client(user_api_key=None):
     if not api_key:
         return None, "Missing OpenAI API Key. Please provide one below or set it in your .env file."
     try:
-        import openai
-        openai.api_key = api_key
-        return openai, None
+        from openai import OpenAI
+        client = OpenAI(api_key=api_key)
+        return client, None
     except Exception as e:
         return None, f"OpenAI init failed: {e}"
 
@@ -290,7 +290,7 @@ else:
             else:
                 with st.spinner("Generating summary from selected articles..."):
                     try:
-                        response = client.ChatCompletion.create(
+                        response = client.chat.completions.create(
                             model=model,
                             messages=[
                                 {
@@ -305,12 +305,12 @@ else:
 
                         summary = response.choices[0].message.content
 
-                        usage = response.get("usage", {})
+                        usage = getattr(response, "usage", None)
                         if usage:
                             ucol1, ucol2, ucol3, ucol4 = st.columns(4)
-                            actual_input = usage.get("prompt_tokens", 0)
-                            actual_output = usage.get("completion_tokens", 0)
-                            actual_total = usage.get("total_tokens", 0)
+                            actual_input = getattr(usage, "prompt_tokens", 0)
+                            actual_output = getattr(usage, "completion_tokens", 0)
+                            actual_total = getattr(usage, "total_tokens", 0)
                             pricing = MODEL_PRICING.get(model, {"input": 0, "output": 0})
                             actual_cost = (actual_input / 1_000_000) * pricing["input"] + (actual_output / 1_000_000) * pricing["output"]
 
