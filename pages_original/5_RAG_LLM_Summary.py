@@ -24,7 +24,6 @@ from utils.filters import (
     apply_filters, render_summary_metrics
 )
 
-st.set_page_config(page_title="RAG+LLM Summary", layout="wide")
 
 st.title("RAG+LLM Situation Summary")
 st.markdown("Generate AI-powered situation summaries in two steps: **estimate cost**, then **generate summary**.")
