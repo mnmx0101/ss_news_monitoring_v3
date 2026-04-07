@@ -13,6 +13,7 @@ Functions
 import json
 import re
 import os
+from typing import Optional
 
 import pandas as pd
 from openai import OpenAI
@@ -107,7 +108,7 @@ def summarize_conflict(result_df: pd.DataFrame,
                        source:     str,
                        model:      str = MODEL,
                        max_tokens: int = 1500,
-                       api_key:    str = None) -> dict | None:
+                       api_key:    str = None) -> Optional[dict]:
     """
     Feed aggregated article text to OpenAI and return a structured JSON
     conflict summary for a given ADM1 × year_month × source slice.
