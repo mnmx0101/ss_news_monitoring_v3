@@ -42,17 +42,20 @@
 
 **A complementary signal layer — not a replacement for formal humanitarian data.**
 
-### Primary use case: Corroborating anomalies from formal sources
+### Potential use case: Exploring consistency with formal sources
 
-- IPC reports indicate elevated Phase 3–4 populations → *Does media corroborate this, and where?*
-- Economic data signals a food price shock → *What are journalists reporting as the driver?*
-- DTM data shows displacement spikes → *Can news narratives identify the trigger event?*
+- When IPC reports flag elevated Phase 3–4 populations → *Is media coverage consistent with this, and where?*
+- When economic indicators suggest a food price shock → *Are journalists reporting related dynamics?*
+- When DTM data shows displacement → *Do news narratives reference similar events in the same period?*
 
-### What media monitoring adds
-- **Speed** — News often precedes formal reporting by weeks
-- **Narrative context** — Explains *why*, not just *that*, an anomaly is occurring
-- **Geographic precision** — Identifies which states and counties are generating signals
-- **Independent evidence** — An additional lane for multi-source verification of formal findings
+> These are exploratory questions — media signals are **not confirmatory evidence**, but may help prioritize where to look further.
+
+### What media monitoring may add
+
+- **Timeliness** — Media sometimes picks up events before formal reporting cycles close, though not always
+- **Contextual texture** — Provides narrative detail that quantitative indicators cannot capture
+- **Geographic signal** — Can suggest which states or counties are generating coverage, subject to georeferencing limitations
+- **An additional lens** — One more data point to triangulate alongside, not instead of, formal humanitarian assessments
 
 ---
 
