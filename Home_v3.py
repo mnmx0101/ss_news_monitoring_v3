@@ -299,6 +299,8 @@ adm2       = st.Page("pages_v3/3_ADM2_Insights.py",     title="ADM2 Insights",  
 validation = st.Page("pages_v3/5_Validation_Reference.py", title="Validation Reference", icon="✅")
 rag        = st.Page("pages_original/5_RAG_LLM_Summary.py",   title="RAG+LLM Summary",     icon="🤖")
 
+gdelt      = st.Page("dashboard_release/south_sudan_app.py",   title="GDELT Analysis",      icon="📊")
+
 st.set_page_config(
     page_title="News Analytics Platform (V3)",
     page_icon="📰",
@@ -307,6 +309,7 @@ st.set_page_config(
 
 pg = st.navigation({
     "Dashboard":  [home, national, adm1, adm2, validation, rag],
+    "External Analysis": [gdelt]
 })
 
 pg.run()
