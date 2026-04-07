@@ -177,11 +177,9 @@ st.subheader("Summary Configuration")
 
 col1, col2 = st.columns(2)
 with col1:
-    api_key_default = os.getenv("OPENAI_API_KEY", "")
     api_key = st.text_input(
-        "OpenAI API Key",
+        "OpenAI API Key (Leave blank to use system key)",
         type="password",
-        value=api_key_default,
         key="p5_api_key"
     )
 with col2:
