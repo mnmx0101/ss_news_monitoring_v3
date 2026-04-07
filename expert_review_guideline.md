@@ -169,4 +169,69 @@ Layer 4 — Source-Level Confirmation (RAG+LLM Summary)
 
 ---
 
+# South Sudan GDELT Risk Monitoring Dashboard Structure
+
+This document outlines the architecture, workflow, and structure of the Streamlit dashboard app (`streamlit_app.py`) for the South Sudan GDELT Risk Monitoring initiative. The dashboard aligns analytical pipeline outputs into an interactive interface, enforcing a funnel approach from macro-level anomaly detection down to micro-level text summarization.
+
+---
+
+## 1. Application Overview
+
+The dashboard mirrors the analytical pipeline through a 6-tab layout, enabling early warning and conflict signal detection using multiple event sources. It utilizes pre-processed panels of event data, allowing low-latency rendering and on-demand RAG/LLM invocation for validated intelligence briefings.
+
+---
+
+## 2. Dashboard Architecture (Tabs & Features)
+
+### Tab 0: Panel Builder (Data Overview)
+
+* **Objective:** Serve a macroscopic view of the data backbone driving the dashboard.
+* **Outputs:**
+  * Summary of dataset dimensions out of the `panel_df.csv` (rows, months, total events).
+  * Assessment of geospatial matching quality by source across targeted ADM1 and ADM2 regions.
+
+### Tab 1: Multi-Source Volume Trends
+
+* **Objective:** Enable direct timeline comparison for event volumes reported by different sources.
+* **Outputs:**
+  * Granular monthly event count bar charts filtered by ADM1 region, juxtaposed across primary sources (Eye Radio, Radio Tamazuj, Sudan Tribune, AllAfrica, ReliefWeb).
+  * Dynamic metric selection (total events, fatality proxy, overall tone).
+
+### Tab 2: Alerts & Alarms Heatmaps
+
+* **Objective:** Expose statistically significant temporal and spatial anomalies.
+* **Outputs:**
+  * Faceted heatmaps (month vs. ADM1 region) color-coded by standard-deviation-based alert levels (Normal, Alert: 1-2 SD, Alarm: 2+ SD).
+  * Supports both static threshold calculations across the full series and user-defined dynamic rolling window calculations.
+
+### Tab 3: Cross-Source Convergence
+
+* **Objective:** Provide a unified reliability measure across disparate source points, minimizing individual source noise.
+* **Outputs:**
+  * "Convergence Score" matrix indicating the presence of simultaneous alerts/alarms across multiple sources.
+  * Highlights exact "peak periods" meeting set thresholds of source agreement.
+
+### Tab 4: National Incidence & Peak Identification
+
+* **Objective:** Offer a comprehensive national summary tracking the systemic diffusion of conflict incidence.
+* **Outputs:**
+  * Broad visualization showing the volume of ADM1 regions in an alert state on a given month.
+  * Convergence stacked bar charts overlayed with rolling trendlines to identify macroscopic spikes before triggering analytical briefings.
+  * Exports specific peak periods for LLM ingestions.
+
+### Tab 5: Intelligence Feed (RAG + LLM)
+
+* **Objective:** Render validated micro-level insights, automating narrative reporting for high-confidence incidence peaks without manual raw text evaluation.
+* **Outputs:**
+  * On-demand RAG generation pipeline requiring an OpenAI key, delivering conflict severity, actors involved, humanitarian impact, and a synthesized intelligence briefing.
+  * Features a transparency toggle surfacing raw verification points (source URLs and underlying prompts) and a catalog of previously recorded briefings.
+
+---
+
+## 3. Data Integration & Performance
+
+The application utilizes persistent state management and caching across 4 critical aggregated outputs from the backend pipeline: `panel_df.csv`, `convergence_df.csv`, `summaries_df.csv`, and `peak_df.csv` stored in the `results/` directory. By splitting the heavy extraction layers out of the UI, runtime operations remain lightweight, restricting live-scraping and LLM calls solely to deliberate, analyst-triggered generations in Tab 5.
+
+---
+
 *This guideline was prepared to support systematic evidence validation for IPC analysts monitoring South Sudan. For technical platform questions, refer to the project README.*
