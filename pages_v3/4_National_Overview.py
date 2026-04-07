@@ -321,6 +321,14 @@ with tab_adm2:
             )
             ordered_display = adm_lookup["display_name"].tolist()
 
+            st.subheader("National Incident Aggregation")
+            st.caption("How many counties are in Alert or Alarm status each month? Higher bars mean a wider geographic spread of the crisis signal.")
+            nat_chart_adm2 = build_nat_ts(classified_adm2)
+            if nat_chart_adm2:
+                st.altair_chart(nat_chart_adm2, use_container_width=True)
+            else:
+                st.info("🟢 No Alert or Alarm signals detected at this setting.")
+
             st.subheader("County-Level Signal Heatmap")
             st.caption(
                 "Counties are grouped by state (ordered alphabetically) then sorted alphabetically within each state. "
