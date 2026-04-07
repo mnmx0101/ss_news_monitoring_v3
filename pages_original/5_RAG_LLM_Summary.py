@@ -123,7 +123,7 @@ CRITICAL RULES:
 1. Only use FACTS explicitly stated in the articles - NO speculation, NO inference, NO assumptions.
 """
 
-    prompt = f"""You are a humanitarian crisis analyst. Based ONLY on the following news reports from Radio Tamazuj,
+    prompt = f"""You are a humanitarian crisis analyst. Based ONLY on the following news reports,
 provide a situation summary.
 Focus Context: {context_str}
 Time Period: {date_range[0]} to {date_range[1]}
@@ -146,11 +146,10 @@ FORMAT:
 
 # Load data
 df = load_data()
-df = df[df["retrieve_source"] == "radiotamazuj"].copy()
 
 # Sidebar filters
 st.sidebar.header("Scoping Filters")
-st.sidebar.info("These filters determine which articles the AI will analyze. Note: All data is from Radio Tamazuj.")
+st.sidebar.info("These filters determine which articles the AI will analyze.")
 
 sentiments = render_sentiment_filter(df, "p5")
 date_range = render_date_filter(df, "p5")
@@ -163,7 +162,7 @@ adm2 = render_adm2_filter(df, adm1_selection=adm1, key_prefix="p5")
 
 # Apply filters
 filtered_df = apply_filters(
-    df, sources=["radiotamazuj"], date_range=date_range,
+    df, sources=None, date_range=date_range,
     sentiments=sentiments, labels=labels, adm1=adm1, adm2=adm2
 )
 
@@ -221,7 +220,7 @@ if st.button("Estimate Input Tokens and Cost", key="p5_estimate"):
         if context_df.empty:
             st.warning("Not enough articles found.")
         else:
-            context_parts = ["Source: Radio Tamazuj"]
+            context_parts = ["All Sources"]
             if labels:
                 context_parts.append(f"Labels: {', '.join(labels[:3])}")
             if topic_keyword:
