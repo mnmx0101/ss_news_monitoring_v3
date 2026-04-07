@@ -68,7 +68,14 @@ def classify_region(group: pd.DataFrame, metric_col: str, method: str, params: d
     """
     n_obs = len(group)
     is_fallback = n_obs < N
-    region_name = group.iloc[0].get("adm1_name_final", group.iloc[0].get("adm2_name_final", "?"))
+    if "adm2_name_final" in group.columns and not group["adm2_name_final"].isnull().all():
+        base_name = group.iloc[0]["adm2_name_final"]
+        state_name = group.iloc[0].get("adm1_name_final", "")
+        region_name = f"{base_name} ({state_name})" if state_name else base_name
+    elif "adm1_name_final" in group.columns:
+        region_name = group.iloc[0]["adm1_name_final"]
+    else:
+        region_name = "?"
 
     if not is_fallback:
         p1, p2 = compute_thresholds(group[metric_col], method, params)
