@@ -20,16 +20,16 @@
 
 ## How They Compare
 
-|                                   | Radio Tamazuj                        | GDELT                                                      |
-| --------------------------------- | ------------------------------------ | ---------------------------------------------------------- |
-| **Data Period**             | 2020 – September 2024               | 2020 – December 2024                                      |
-| **Data Ingestion**          | Manual scraping pipeline             | Automated standardised pipeline                            |
-| **Georeferencing (ADM1)**   | Reliable at state level              | Reliable at state level                                    |
-| **Georeferencing (ADM2)**   | NLP-based, limited rural coverage    | Standardised, limited rural coverage                       |
-| **Labeling**                | Flexible custom taxonomy (any topic) | Primarily conflict-focused; expandable to humanitarian aid |
-| **Sources**                 | Single source (Radio Tamazuj)        | 5+ sources (Eye Radio, Sudan Tribune, ReliefWeb…)         |
-| **Full-Text AI**            | ✅ RAG + LLM summariser              | ✅ Available for peak events                               |
-| **Cross-Source Validation** | ❌ Single-source only                | ✅ Convergence scoring across sources                      |
+|                                   | Radio Tamazuj                                                  | GDELT                                                      |
+| --------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------- |
+| **Data Period**             | 2020 – September 2024                                         | 2020 – December 2024                                      |
+| **Data Ingestion**          | Manual scraping pipeline (at least for now, multi IP purchase) | Automated standardised pipeline                            |
+| **Georeferencing (ADM1)**   | Reliable at state level                                        | Reliable at state level                                    |
+| **Georeferencing (ADM2)**   | NLP-based, limited rural coverage                              | Standardised, limited rural coverage                       |
+| **Labeling**                | Flexible custom taxonomy (any topic)                           | Primarily conflict-focused; expandable to humanitarian aid |
+| **Sources**                 | Single source (Radio Tamazuj)                                  | 5+ sources (Eye Radio, Sudan Tribune, ReliefWeb…)         |
+| **Full-Text AI**            | ✅ RAG + LLM summariser                                        | ✅ Available for peak events                               |
+| **Cross-Source Validation** | ❌ Single-source only                                          | ✅ Convergence scoring across sources                      |
 
 > **Shared limitation:** Rural and remote regions are structurally under-reported in media, regardless of tool.
 
@@ -118,9 +118,15 @@ Multi-source convergence analysis — does the broader media landscape agree wit
 
 ### We Need Your Expert Input
 
-✅ Which signals match well with known events at **national and regional level**?✅ Which **(topic × region)** combinations show false positives or missed signals?✅ Which regions or topics feel most unreliable to you?✅ How can we update the **keyword taxonomy** to better capture South Sudan-specific terminology?
+✅ Which signals match well with known events at **national and regional level**?
 
-> **Expert feedback directly informs threshold calibration and future model refinement.**
+✅ Which **(topic × region)** combinations show false positives or missed signals?
+
+✅ Which regions or topics feel most unreliable to you?
+
+✅ How can we update the **keyword taxonomy** to better capture South Sudan-specific terminology?
+
+> **Expert feedback informs threshold calibration and future model refinement.**
 
 ---
 
