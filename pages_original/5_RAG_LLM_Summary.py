@@ -144,6 +144,25 @@ FORMAT:
     return prompt, docs_text
 
 
+@st.cache_data(show_spinner=False)
+def get_peak_periods(df):
+    target_topics = ["Political Instability", "Conflict and Violence", "Humanitarian Aid", "Forced Displacements"]
+    df_sub = df[df["Label"].isin(target_topics)]
+    
+    # Count articles per topic, adm1, yearmon
+    counts = df_sub.groupby(["Label", "adm1_name_final", "yearmon"]).size().reset_index(name="Article Count")
+    
+    # Find the row with the max count for each topic
+    if counts.empty:
+        return pd.DataFrame()
+    
+    idx = counts.groupby("Label")["Article Count"].idxmax()
+    peaks = counts.loc[idx].sort_values("Article Count", ascending=False).reset_index(drop=True)
+    
+    peaks.rename(columns={"Label": "Topic", "adm1_name_final": "ADM1 (Peak Region)", "yearmon": "Peak Month"}, inplace=True)
+    return peaks
+
+
 # Load data
 df = load_data()
 df = df[df["retrieve_source"] == "radiotamazuj"].copy()
@@ -169,6 +188,15 @@ filtered_df = apply_filters(
 
 # Summary metrics
 render_summary_metrics(filtered_df)
+
+st.markdown("---")
+
+# ── TOPIC PEAK ANALYSIS ───────────────────────────────────────────────────────
+st.subheader("Historical Peak Periods (Reference)")
+st.info("This table shows the single highest reporting month and the primary region driving that spike for the four core topics. It provides a useful temporal reference for narrowing the scope of the LLM summary above.")
+peak_df = get_peak_periods(df)
+if not peak_df.empty:
+    st.dataframe(peak_df, use_container_width=True, hide_index=True)
 
 st.markdown("---")
 
