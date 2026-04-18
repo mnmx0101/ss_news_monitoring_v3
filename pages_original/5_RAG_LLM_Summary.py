@@ -150,16 +150,16 @@ def get_peak_periods(df):
     df_sub = df[df["Label"].isin(target_topics)]
     
     # Count articles per topic, adm1, yearmon
-    counts = df_sub.groupby(["Label", "adm1_name_final", "yearmon"]).size().reset_index(name="Article Count")
+    counts = df_sub.groupby(["adm1_name_final", "Label", "yearmon"]).size().reset_index(name="Article Count")
     
-    # Find the row with the max count for each topic
+    # Find the row with the max count for each (adm1, topic)
     if counts.empty:
         return pd.DataFrame()
     
-    idx = counts.groupby("Label")["Article Count"].idxmax()
-    peaks = counts.loc[idx].sort_values("Article Count", ascending=False).reset_index(drop=True)
+    idx = counts.groupby(["adm1_name_final", "Label"])["Article Count"].idxmax()
+    peaks = counts.loc[idx].sort_values(["adm1_name_final", "Label"]).reset_index(drop=True)
     
-    peaks.rename(columns={"Label": "Topic", "adm1_name_final": "ADM1 (Peak Region)", "yearmon": "Peak Month"}, inplace=True)
+    peaks.rename(columns={"adm1_name_final": "ADM1 (Region)", "Label": "Topic", "yearmon": "Peak Month"}, inplace=True)
     return peaks
 
 
@@ -193,7 +193,7 @@ st.markdown("---")
 
 # ── TOPIC PEAK ANALYSIS ───────────────────────────────────────────────────────
 st.subheader("Historical Peak Periods (Reference)")
-st.info("This table shows the single highest reporting month and the primary region driving that spike for the four core topics. It provides a useful temporal reference for narrowing the scope of the LLM summary above.")
+st.info("This table shows the single highest reporting month for each region and topic. It is a useful temporal reference for targeting the LLM summary scope below.")
 peak_df = get_peak_periods(df)
 if not peak_df.empty:
     st.dataframe(peak_df, use_container_width=True, hide_index=True)
