@@ -1,0 +1,12 @@
+[server]
+# Increase the maximum size of messages (bandwidth) sent between the backend and browser.
+# The default is 200MB. We increase it here for heavier data transfers (e.g. large charts/graphs).
+maxMessageSize = 1000
+
+# Optional: Run the server in a way that handles more requests smoothly
+enableCORS = false
+enableXsrfProtection = false
+
+[runner]
+# Improves processing efficiency by using fast reloading if needed
+magicEnabled = false
