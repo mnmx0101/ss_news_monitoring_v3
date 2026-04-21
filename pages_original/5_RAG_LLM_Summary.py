@@ -17,7 +17,7 @@ load_dotenv("utils/.env")
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from utils.data_loader import load_data
+from utils.data_loader import load_data, get_taxonomy_table
 from utils.filters import (
     render_source_filter, render_date_filter, render_sentiment_filter,
     render_label_filter, render_adm1_filter, render_adm2_filter,
@@ -61,15 +61,21 @@ def keyword_score(text, query_terms):
 
 
 def retrieve_top_k(df, query, top_k=15):
-    """Retrieve top-k relevant articles based on keyword matching."""
+    """Retrieve top-k relevant articles based on keyword matching or random sampling."""
     if df.empty:
         return df
+        
     query = (query or "").strip()
     if not query:
-        return df.sort_values("date", ascending=False).head(top_k)
+        if len(df) > top_k:
+            return df.sample(n=top_k, random_state=None).sort_values("date", ascending=False)
+        return df.sort_values("date", ascending=False)
+        
     q_terms = [t.lower() for t in re.findall(r"[A-Za-z0-9_]+", query) if len(t) >= 3]
     if not q_terms:
-        return df.sort_values("date", ascending=False).head(top_k)
+        if len(df) > top_k:
+            return df.sample(n=top_k, random_state=None).sort_values("date", ascending=False)
+        return df.sort_values("date", ascending=False)
     scored = df.copy()
     scored["_score"] = scored.apply(
         lambda r: keyword_score(
@@ -191,6 +197,12 @@ render_summary_metrics(filtered_df)
 
 st.markdown("---")
 
+st.subheader("Keyword Taxonomy (Reference)")
+with st.expander("View Topic Classification Taxonomy"):
+    st.table(get_taxonomy_table())
+
+st.markdown("---")
+
 # ── TOPIC PEAK ANALYSIS ───────────────────────────────────────────────────────
 st.subheader("Historical Peak Periods (Reference)")
 st.info("This table shows the single highest reporting month for each region and topic. It is a useful temporal reference for targeting the LLM summary scope below.")
@@ -219,7 +231,7 @@ with col2:
 
 col3, col4, col5 = st.columns(3)
 with col3:
-    top_k = st.slider("Number of articles to analyze", 5, 50, 15, key="p5_topk")
+    top_k = st.slider("Number of articles to analyze", 5, 100, 15, key="p5_topk", help="If the filtered datasets exceeds this number, random articles drop the excess uniformly to prevent bias.")
 with col4:
     model = st.selectbox(
         "Model",
@@ -284,16 +296,6 @@ if st.button("Estimate Input Tokens and Cost", key="p5_estimate"):
                 st.metric("Est. Cost", f"${total_cost:.4f}")
 
             st.info(f"**Model**: {model}  |  **Pricing**: ${pricing['input']}/1M input, ${pricing['output']}/1M output")
-
-            with st.expander(f"Articles to be analyzed ({len(context_df)})", expanded=False):
-                for i, (_, r) in enumerate(context_df.iterrows()):
-                    url = r.get("url", "")
-                    link = f" -- [link]({url})" if url and not pd.isna(url) else ""
-                    st.markdown(
-                        f"**[{i+1}]** {r['date'].strftime('%Y-%m-%d')} | "
-                        f"{r['adm1_name_final']} > {r['adm2_name_final']} | "
-                        f"{r['title'][:80]}{link}"
-                    )
 
 st.markdown("---")
 
