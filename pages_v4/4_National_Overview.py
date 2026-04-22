@@ -321,7 +321,7 @@ with tab_adm1:
         else:
             classified_adm1 = classify_panel(topic_adm1, "adm1_name_final")
 
-            st.subheader("National Incident Aggregation")
+            st.subheader("Threshold Review & Adjustments")
             st.caption("How many states are in Alert or Alarm status each month? Higher bars mean a wider geographic spread of the crisis signal.")
             nat_chart = build_nat_ts(classified_adm1, topic_name=selected_topic)
             if nat_chart:
@@ -400,7 +400,7 @@ with tab_adm2:
             )
             ordered_display = adm_lookup["display_name"].tolist()
 
-            st.subheader("National Incident Aggregation")
+            st.subheader("Threshold Review & Adjustments")
             st.caption("How many counties are in Alert or Alarm status each month? Higher bars mean a wider geographic spread of the crisis signal.")
             nat_chart_adm2 = build_nat_ts(classified_adm2, topic_name=selected_topic)
             if nat_chart_adm2:
