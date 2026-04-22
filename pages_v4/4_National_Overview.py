@@ -76,7 +76,7 @@ with st.sidebar:
     st.caption("Choose how alert and alarm levels are calculated. Each method has different assumptions.")
     method = st.selectbox(
         "Method",
-        options=["percentile", "tukey", "zscore", "categorical"],
+        options=["categorical", "percentile", "tukey", "zscore"],
         format_func={"percentile": "Percentile", "tukey": "Tukey Fence (IQR)", "zscore": "Z-Score (SD)", "categorical": "Categorical (National Avg)"}.get,
         label_visibility="collapsed"
     )

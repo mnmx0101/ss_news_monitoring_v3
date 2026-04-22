@@ -84,9 +84,9 @@ with st.sidebar:
     st.markdown("#### 🔬 Threshold Methods")
     active_methods = st.multiselect(
         "Select Methods (Consensus mode active if >1)",
-        options=["percentile", "tukey", "zscore"],
-        default=["percentile"],
-        format_func={"percentile": "Percentile", "tukey": "Tukey Fence (IQR)", "zscore": "Z-Score (SD)"}.get,
+        options=["categorical", "percentile", "tukey", "zscore"],
+        default=["categorical"],
+        format_func={"percentile": "Percentile", "tukey": "Tukey Fence (IQR)", "zscore": "Z-Score (SD)", "categorical": "Categorical (National Avg)"}.get,
         label_visibility="collapsed"
     )
 
@@ -243,8 +243,7 @@ st.altair_chart(final_chart, use_container_width=True)
 # ── CONSENSUS HEATMAP (always shown) ─────────────────────────────────────────
 st.markdown("---")
 st.subheader("🔬 Method × Month Breakdown")
-
-METHOD_LABELS = {"percentile": "Percentile", "tukey": "Tukey (IQR)", "zscore": "Z-Score (SD)"}
+METHOD_LABELS = {"percentile": "Percentile", "tukey": "Tukey (IQR)", "zscore": "Z-Score (SD)", "categorical": "Categorical (Nat. Avg)"}
 
 if len(active_methods) == 1:
     st.caption(
