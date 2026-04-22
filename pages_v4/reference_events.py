@@ -15,46 +15,96 @@ REFERENCE_EVENTS = [
     # =========================================================================
     # CONFLICT AND VIOLENCE
     # =========================================================================
-    {"period": "2020-02/2020-05", "adm1": "Jonglei", "adm2": "Pibor",
+    {"period": "2020", "adm1": "Warrap", "adm2": "Tonj North",
      "topic": "Conflict and Violence",
-     "label": "Lou Nuer-Murle clashes (287+ killed)",
-     "description": "Lou Nuer-Murle intercommunal clashes kill 287+ with mass abductions of women and children"},
-    {"period": "2021-08", "adm1": "Upper Nile", "adm2": None,
+     "label": "Tonj North cattle raids / IPC Phase 5",
+     "description": "Cattle raids, armed youth attacks; IPC Phase 5 (~13,000 in catastrophe). Thousands displaced."},
+
+    {"period": "2020", "adm1": "Unity", "adm2": "Leer, Rubkona",
      "topic": "Conflict and Violence",
-     "label": "Kitgwang SPLM-IO split",
-     "description": "Kitgwang Declaration triggers armed clashes between rival SPLM-IO factions"},
-    {"period": "2022-02/2022-05", "adm1": "Unity", "adm2": "Leer, Koch, Mayendit",
+     "label": "SSPDF & armed group clashes in oil areas",
+     "description": "SSPDF operations, armed group clashes in oil-producing areas. Protracted displacement."},
+
+    {"period": "2020", "adm1": "Western Equatoria", "adm2": "Yei, Tambura, Mundri",
      "topic": "Conflict and Violence",
-     "label": "Unity civilian attacks",
-     "description": "Government-aligned forces attack civilian villages with killings and sexual violence"},
-    {"period": "2022", "adm1": "Upper Nile", "adm2": None,
+     "label": "NAS armed insurgency vs SSPDF",
+     "description": "NAS (National Salvation Front) armed insurgency against SSPDF. Localized displacement."},
+
+    {"period": "2020-08", "adm1": "Warrap", "adm2": "Tonj town",
      "topic": "Conflict and Violence",
-     "label": "White Army Shilluk raids",
-     "description": "Nuer White Army raids raze Shilluk villages prompting government helicopter gunship intervention"},
-    {"period": "2023-01", "adm1": "Jonglei", "adm2": "Pibor",
+     "label": "Disarmament dispute (127 killed)",
+     "description": "Clashes between soldiers and armed civilians following disarmament dispute. 127 killed (82 civilians)."},
+
+    {"period": "2021", "adm1": "Western Bahr el Ghazal", "adm2": "Wau (outskirts)",
      "topic": "Conflict and Violence",
-     "label": "Lou Nuer-Murle revenge (308 killed)",
-     "description": "Lou Nuer-Murle revenge killings and cattle raids kill 308, injure 131, 299 abductions"},
-    {"period": "2024-01", "adm1": "Warrap", "adm2": None,
+     "label": "SSPDF/NSS block aid worker rescue",
+     "description": "SSPDF/NSS blocked UNMISS rescue of ambushed aid workers; 2 aid workers killed. Aid access blocked."},
+
+    {"period": "2022-02/2022-04", "adm1": "Unity", "adm2": "Leer county",
      "topic": "Conflict and Violence",
-     "label": "Abyei attack (52 killed)",
-     "description": "Attack in disputed Abyei Administrative Area kills 52 people"},
-    {"period": "2024", "adm1": None, "adm2": None,
+     "label": "Leer outpost attack & mass atrocities",
+     "description": "SSPDF + allied youth militia attack on SPLA-IO outpost; mass atrocities documented. Thousands displaced; serious war crimes documented."},
+
+    {"period": "2022", "adm1": "Western Equatoria", "adm2": "Tambura",
      "topic": "Conflict and Violence",
-     "label": "UNMISS: 1,019 incidents (+51%)",
-     "description": "UNMISS documents 1,019 violent incidents affecting 3,657 civilians nationwide"},
-    {"period": "2025-01", "adm1": "Western Equatoria", "adm2": None,
+     "label": "Tambura fighting & child soldiers",
+     "description": "Continued armed group fighting; child soldier recruitment documented. Tens of thousands displaced."},
+
+    {"period": "2022-08/2022-12", "adm1": "Upper Nile", "adm2": "Greater Upper Nile (Kitgwang vs. Agwelek)",
      "topic": "Conflict and Violence",
-     "label": "W. Equatoria SSPDF-SPLA/IO clashes",
-     "description": "SSPDF-SPLA/IO armed clashes in Western Equatoria marking renewed tensions"},
-    {"period": "2025-02/2025-03", "adm1": "Upper Nile", "adm2": "Nasir",
+     "label": "Kitgwang vs Agwelek factional clashes",
+     "description": "Factional clashes within former SPLA-IO factions. 594 killed, 290 injured, 258 abducted, 75 SGBV."},
+
+    {"period": "2022-10/2022-12", "adm1": "Upper Nile, Warrap, Jonglei", "adm2": "Multiple counties",
      "topic": "Conflict and Violence",
-     "label": "Nasir base attack + airstrikes",
-     "description": "White Army overruns SSPDF base in Nasir; government retaliatory airstrikes"},
-    {"period": "2025-03", "adm1": "Upper Nile", "adm2": "Nasir, Longechuk, Ulang",
+     "label": "Widest spread: 87% spike in civilian harm",
+     "description": "87% spike in civilian harm vs same period 2021; 464% rise in abductions. Worst single quarter of 2022."},
+
+    {"period": "2023", "adm1": "Central Equatoria, Western Equatoria", "adm2": "Yei, Lainya, Morobo",
      "topic": "Conflict and Violence",
-     "label": "SSPDF aerial bombardments (58+ killed)",
-     "description": "SSPDF uses indiscriminate aerial bombardments killing at least 58 civilians"},
+     "label": "NAS spillover & pastoralist dislocation",
+     "description": "NAS insurgency + Bor Dinka pastoralist dislocation causing ICV in Equatoria. Intercommunal clashes, looting, displacement."},
+
+    {"period": "2024", "adm1": "Unity, Upper Nile", "adm2": "Multiple",
+     "topic": "Conflict and Violence",
+     "label": "Northern instability: >1,000 incidents",
+     "description": "UNMISS documented 51% rise in civilian harm; 1,019 violent incidents. 1,561 killed, 1,299 injured, 551 abducted."},
+
+    {"period": "2024", "adm1": "Western Equatoria", "adm2": "Tambura, Mundri East",
+     "topic": "Conflict and Violence",
+     "label": "NAS operations & SSPDF retaliations",
+     "description": "Continued NAS operations; SSPDF retaliatory attacks. Thousands displaced."},
+
+    {"period": "2025-02", "adm1": "Upper Nile", "adm2": "Nasir",
+     "topic": "Conflict and Violence",
+     "label": "SPLA-IO overruns SSPDF base",
+     "description": "SPLA-IO overrun of SSPDF base; 20+ civilians killed; Machar allies arrested. Thousands displaced; political crisis triggered."},
+
+    {"period": "2025-02/2025-03", "adm1": "Upper Nile", "adm2": "Nasir, Ulang",
+     "topic": "Conflict and Violence",
+     "label": "SSPDF retaliation -> Famine risk",
+     "description": "SSPDF retaliatory offensive; evacuation orders; Famine risk declared. ~110,000+ displaced (Nasir/Akobo corridor)."},
+
+    {"period": "2025-03", "adm1": "Jonglei", "adm2": "Akobo",
+     "topic": "Conflict and Violence",
+     "label": "Akobo deserted (SSPDF ops)",
+     "description": "SSPDF military operations; evacuation orders; Akobo town largely deserted. ~110,000 fled to Ethiopia."},
+
+    {"period": "2025-03", "adm1": "Jonglei, Upper Nile", "adm2": "Fangak, Nyirol, Uror, Ayod",
+     "topic": "Conflict and Violence",
+     "label": "Clashes generate famine risk (270K displaced)",
+     "description": "Escalating SSPDF/SPLM-IO clashes; famine risk across 8 counties. ~270,000 displaced across Jonglei + Upper Nile."},
+
+    {"period": "2025-03/2025-05", "adm1": "Jonglei", "adm2": "Fangak",
+     "topic": "Conflict and Violence",
+     "label": "SSPDF bombs MSF hospital",
+     "description": "SSPDF bombed MSF hospital in Fangak and old market (May 3). 7 killed, 20+ injured; aid access severed."},
+
+    {"period": "2025-03/2025-09", "adm1": "Western Equatoria", "adm2": "Western Equatoria (multiple)",
+     "topic": "Conflict and Violence",
+     "label": "Widespread killings across W. Equatoria",
+     "description": "UNMISS documented SSPDF, SPLA-IO, and NAS killings, abductions, sexual violence. Widespread; Jan-Jun documented."},
+
 
     # =========================================================================
     # HUMANITARIAN AID
