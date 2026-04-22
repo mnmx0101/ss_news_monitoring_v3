@@ -217,11 +217,23 @@ def build_nat_ts(classified, topic_name=None):
         tooltip=["yearmon_date:T", "status:N", "n_regions:Q"]
     ).properties(height=280)
 
-    # Overlay reference events as vertical rules + labels
+    # Overlay explicit National reference events
     if topic_name:
-        ev_df = get_events_for_topic(topic_name)
+        NATIONAL_EVENTS = [
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2020-02-15"), "label": "Jonglei/GPAA: ICV Massacre", "period": "287+ killed; 8k displaced to Pibor base; Lou Nuer-Murle cycle."},
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2020-08-15"), "label": "Warrap (Tonj): Disarmament", "period": "127 killed in Tonj Town; Tonj North hit by IPC 5 Catastrophe."},
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2022-03-15"), "label": "Unity (Leer): Atrocities", "period": "High-intensity CF; state-sponsored offensive; thousands displaced."},
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2022-11-15"), "label": "Upper Nile (Multiple): 87% Spike", "period": "Record national spike; concentrated in Fashoda/Panyikang."},
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2023-06-15"), "label": "Upper Nile (Renk): Sudan Influx", "period": "900k+ arrivals; Renk/Maban systems overwhelmed (400% cap)."},
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2024-06-15"), "label": "Unity/Upper Nile: 51% Harm Rise", "period": "UN-documented 1,561 killed; 1,019 incidents (National Peak)."},
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2025-02-15"), "label": "Upper Nile (Nasir): Retaliation", "period": "110k+ displaced; evacuation orders; health system collapse."},
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2025-03-15"), "label": "Jonglei (Akobo): Ethiopia Exodus", "period": "270k+ total displaced; 110k fled Akobo to Ethiopia border."}
+        ]
+        
+        ev_list = [e for e in NATIONAL_EVENTS if e["topic"] == topic_name]
+        ev_df = pd.DataFrame(ev_list)
+        
         if not ev_df.empty:
-            # Filter to events within the data time range
             t_min = nat["yearmon_date"].min()
             t_max = nat["yearmon_date"].max()
             ev_df = ev_df[(ev_df["date"] >= t_min) & (ev_df["date"] <= t_max)]
@@ -231,7 +243,7 @@ def build_nat_ts(classified, topic_name=None):
             ).encode(
                 x="date:T",
                 tooltip=[alt.Tooltip("label:N", title="Event"),
-                         alt.Tooltip("period:N", title="Period")]
+                         alt.Tooltip("period:N", title="Description")]
             )
             labels = alt.Chart(ev_df).mark_text(
                 align="left", angle=270, fontSize=9, dy=-5, dx=3, color="#333"
@@ -321,7 +333,7 @@ with tab_adm1:
         else:
             classified_adm1 = classify_panel(topic_adm1, "adm1_name_final")
 
-            st.subheader("Threshold Review & Adjustments")
+            st.subheader("National Incident Aggregation")
             st.caption("How many states are in Alert or Alarm status each month? Higher bars mean a wider geographic spread of the crisis signal.")
             nat_chart = build_nat_ts(classified_adm1, topic_name=selected_topic)
             if nat_chart:
@@ -400,7 +412,7 @@ with tab_adm2:
             )
             ordered_display = adm_lookup["display_name"].tolist()
 
-            st.subheader("Threshold Review & Adjustments")
+            st.subheader("National Incident Aggregation")
             st.caption("How many counties are in Alert or Alarm status each month? Higher bars mean a wider geographic spread of the crisis signal.")
             nat_chart_adm2 = build_nat_ts(classified_adm2, topic_name=selected_topic)
             if nat_chart_adm2:
