@@ -207,32 +207,11 @@ points = alt.Chart(reg_data).mark_circle(size=100).encode(
 
 chart_layers.extend([line, points])
 
-# Overlay reference events for this topic + parent ADM1
-ev_df = get_events_for_topic_and_adm1(selected_topic, selected_adm1)
-if not ev_df.empty:
-    ev_rules = alt.Chart(ev_df).mark_rule(
-        strokeDash=[4, 3], strokeWidth=2
-    ).encode(
-        x="date:T",
-        color=alt.Color("label:N", legend=None),
-        tooltip=[alt.Tooltip("label:N", title="Event"),
-                 alt.Tooltip("period:N", title="Period")]
-    )
-    ev_labels = alt.Chart(ev_df).mark_text(
-        align="left", angle=270, fontSize=9, dy=-5, dx=3
-    ).encode(
-        x="date:T",
-        color=alt.Color("label:N", legend=None),
-        text="label:N"
-    )
-    chart_layers.extend([ev_rules, ev_labels])
-
 st.subheader(f"📈 {selected_region} — {selected_topic}")
 st.caption(
     "The blue line shows monthly article count (or sentiment). "
     "Colored dots reflect each month's status. "
     + ("Orange/Red dashed lines are Alert/Alarm thresholds." if len(active_methods) == 1 else "Threshold lines hidden in Consensus mode to avoid clutter.")
-    + " Dashed black vertical lines mark reference events."
 )
 
 final_chart = alt.layer(*chart_layers).resolve_scale(color='independent').properties(height=450).interactive()
