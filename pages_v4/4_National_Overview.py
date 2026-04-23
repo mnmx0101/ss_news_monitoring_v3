@@ -251,7 +251,7 @@ def build_nat_ts(classified, topic_name=None):
         
         if not ev_df.empty:
             rects = alt.Chart(ev_df).mark_rect(
-                opacity=0.15, color="#555"
+                opacity=0.4, color="#555"
             ).encode(
                 x="start:T",
                 x2="end:T",
