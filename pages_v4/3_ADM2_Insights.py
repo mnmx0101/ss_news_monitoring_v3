@@ -215,16 +215,18 @@ if not ev_df.empty:
     ev_df = ev_df[(ev_df["date"] >= t_min) & (ev_df["date"] <= t_max)]
     if not ev_df.empty:
         ev_rules = alt.Chart(ev_df).mark_rule(
-            strokeDash=[4, 3], color="#333", strokeWidth=1
+            strokeDash=[4, 3], strokeWidth=1
         ).encode(
             x="date:T",
+            color=alt.Color("label:N", legend=None),
             tooltip=[alt.Tooltip("label:N", title="Event"),
                      alt.Tooltip("period:N", title="Period")]
         )
         ev_labels = alt.Chart(ev_df).mark_text(
-            align="left", angle=270, fontSize=9, dy=-5, dx=3, color="#333"
+            align="left", angle=270, fontSize=9, dy=-5, dx=3
         ).encode(
             x="date:T",
+            color=alt.Color("label:N", legend=None),
             text="label:N"
         )
         chart_layers.extend([ev_rules, ev_labels])
