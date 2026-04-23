@@ -220,32 +220,50 @@ def build_nat_ts(classified, topic_name=None):
     # Overlay explicit National reference events
     if topic_name:
         NATIONAL_EVENTS = [
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2022-11-15"), "label": "Factional War & ICV", "period": "Upper Nile + Warrap + Jonglei: CF factional war (Kitgwang-Agwelek) + multi-state ICV"},
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2024-06-15"), "label": "Sustained Elevated Baseline", "period": "Unity + Upper Nile (CF) + Jonglei + Lakes + E. Equatoria (ICV): sustained elevated baseline"},
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2025-02-15"), "label": "Nasir -> Akobo Cascade", "period": "Upper Nile + Jonglei: SSPDF offensive (Nasir -> Akobo cascade)"},
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2025-05-15"), "label": "Massive Multi-Region Collapse", "period": "Upper Nile + Jonglei + W. Equatoria (CF) // Warrap + Lakes + E. Equatoria + Abyei (ICV)"}
+            {
+                "topic": "Conflict and Violence", 
+                "start": pd.Timestamp("2022-10-01"), 
+                "end": pd.Timestamp("2022-12-31"), 
+                "label": "Oct–Dec 2022 Upper Nile + Warrap + Jonglei: CF factional war (Kitgwang–Agwelek) + multi-state ICV"
+            },
+            {
+                "topic": "Conflict and Violence", 
+                "start": pd.Timestamp("2024-01-01"), 
+                "end": pd.Timestamp("2024-12-31"), 
+                "label": "2024 Unity + Upper Nile (CF) + Jonglei + Lakes + E. Equatoria (ICV): sustained elevated baseline"
+            },
+            {
+                "topic": "Conflict and Violence", 
+                "start": pd.Timestamp("2025-02-01"), 
+                "end": pd.Timestamp("2025-03-31"), 
+                "label": "Feb–Mar 2025 Upper Nile + Jonglei: SSPDF offensive (Nasir → Akobo cascade)"
+            },
+            {
+                "topic": "Conflict and Violence", 
+                "start": pd.Timestamp("2025-01-01"), 
+                "end": pd.Timestamp("2025-09-30"), 
+                "label": "Jan–Sep 2025 Upper Nile + Jonglei + W. Equatoria (CF) // Warrap + Lakes + E. Equatoria + Abyei (ICV)"
+            }
         ]
         
         ev_list = [e for e in NATIONAL_EVENTS if e["topic"] == topic_name]
         ev_df = pd.DataFrame(ev_list)
         
         if not ev_df.empty:
+            rects = alt.Chart(ev_df).mark_rect(
+                opacity=0.15, color="#555"
+            ).encode(
+                x="start:T",
+                x2="end:T",
+                tooltip=[alt.Tooltip("label:N", title="Macro Event Context")]
+            )
             rules = alt.Chart(ev_df).mark_rule(
-                strokeDash=[4, 3], strokeWidth=2
+                strokeDash=[4, 3], strokeWidth=1, color="#333"
             ).encode(
-                x="date:T",
-                color=alt.Color("label:N", legend=None),
-                tooltip=[alt.Tooltip("label:N", title="Event"),
-                         alt.Tooltip("period:N", title="Description")]
+                x="start:T",
+                tooltip=[alt.Tooltip("label:N", title="Macro Event Context")]
             )
-            labels = alt.Chart(ev_df).mark_text(
-                align="left", angle=270, fontSize=9, dy=-5, dx=3
-            ).encode(
-                x="date:T",
-                color=alt.Color("label:N", legend=None),
-                text="label:N"
-            )
-            return alt.layer(bars, rules, labels).resolve_scale(color='independent').properties(height=280)
+            return alt.layer(bars, rects, rules).resolve_scale(color='independent').properties(height=280)
     return bars
 
 
