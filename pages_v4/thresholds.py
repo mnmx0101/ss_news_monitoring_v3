@@ -93,6 +93,10 @@ def classify_region(group: pd.DataFrame, metric_col: str, method: str, params: d
         # Use nationally pre-computed thresholds directly for all regions
         p1 = country_p1
         p2 = country_p2
+        # Mute Central Equatoria and Juba alarms directly
+        if "Central Equatoria" in region_name or "Juba" in region_name:
+            p1 = None
+            p2 = None
     elif not is_fallback:
         p1, p2 = compute_thresholds(group[metric_col], method, params)
     else:
@@ -109,8 +113,10 @@ def classify_region(group: pd.DataFrame, metric_col: str, method: str, params: d
         group["status"] = "No Concern"
     else:
         group["status"] = "No Concern"
-        group.loc[group[metric_col] >= p1, "status"] = "Alert"
-        group.loc[group[metric_col] >= p2, "status"] = "Alarm"
+        if p1 is not None:
+            group.loc[group[metric_col] >= p1, "status"] = "Alert"
+        if p2 is not None:
+            group.loc[group[metric_col] >= p2, "status"] = "Alarm"
 
     group["p1"] = p1
     group["p2"] = p2
