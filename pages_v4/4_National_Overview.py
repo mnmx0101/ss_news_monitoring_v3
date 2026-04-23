@@ -250,6 +250,9 @@ def build_nat_ts(classified, topic_name=None):
         ev_df = pd.DataFrame(ev_list)
         
         if not ev_df.empty:
+            # Derive a short label (period only) for display inside the band
+            ev_df = ev_df.copy()
+            ev_df["short_label"] = ev_df["label"].str.extract(r'^([^\:]+)')[0].str.strip()
             rects = alt.Chart(ev_df).mark_rect(
                 opacity=0.4, color="#555"
             ).encode(
@@ -263,7 +266,15 @@ def build_nat_ts(classified, topic_name=None):
                 x="start:T",
                 tooltip=[alt.Tooltip("label:N", title="Macro Event Context")]
             )
-            return alt.layer(bars, rects, rules).resolve_scale(color='independent').properties(height=280)
+            band_labels = alt.Chart(ev_df).mark_text(
+                align="left", angle=270, fontSize=8, fontWeight="bold",
+                color="white", dx=4, dy=-4
+            ).encode(
+                x="start:T",
+                text="short_label:N",
+                tooltip=[alt.Tooltip("label:N", title="Macro Event Context")]
+            )
+            return alt.layer(bars, rects, rules, band_labels).resolve_scale(color='independent').properties(height=280)
     return bars
 
 
