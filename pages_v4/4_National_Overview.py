@@ -250,9 +250,9 @@ def build_nat_ts(classified, topic_name=None):
         ev_df = pd.DataFrame(ev_list)
         
         if not ev_df.empty:
-            # Derive a short label (period only) for display inside the band
+            # Derive a short label (period prefix) for display inside the band
             ev_df = ev_df.copy()
-            ev_df["short_label"] = ev_df["label"].str.extract(r'^([^\:]+)')[0].str.strip()
+            ev_df["short_label"] = ev_df["label"].apply(lambda s: s.split(" ")[0] + " " + s.split(" ")[1] if len(s.split(" ")) > 1 else s)
             rects = alt.Chart(ev_df).mark_rect(
                 opacity=0.4, color="#555"
             ).encode(
