@@ -210,26 +210,22 @@ chart_layers.extend([line, points])
 # Overlay reference events for this topic + parent ADM1
 ev_df = get_events_for_topic_and_adm1(selected_topic, selected_adm1)
 if not ev_df.empty:
-    t_min = reg_data["yearmon_date"].min()
-    t_max = reg_data["yearmon_date"].max()
-    ev_df = ev_df[(ev_df["date"] >= t_min) & (ev_df["date"] <= t_max)]
-    if not ev_df.empty:
-        ev_rules = alt.Chart(ev_df).mark_rule(
-            strokeDash=[4, 3], strokeWidth=1
-        ).encode(
-            x="date:T",
-            color=alt.Color("label:N", legend=None),
-            tooltip=[alt.Tooltip("label:N", title="Event"),
-                     alt.Tooltip("period:N", title="Period")]
-        )
-        ev_labels = alt.Chart(ev_df).mark_text(
-            align="left", angle=270, fontSize=9, dy=-5, dx=3
-        ).encode(
-            x="date:T",
-            color=alt.Color("label:N", legend=None),
-            text="label:N"
-        )
-        chart_layers.extend([ev_rules, ev_labels])
+    ev_rules = alt.Chart(ev_df).mark_rule(
+        strokeDash=[4, 3], strokeWidth=2
+    ).encode(
+        x="date:T",
+        color=alt.Color("label:N", legend=None),
+        tooltip=[alt.Tooltip("label:N", title="Event"),
+                 alt.Tooltip("period:N", title="Period")]
+    )
+    ev_labels = alt.Chart(ev_df).mark_text(
+        align="left", angle=270, fontSize=9, dy=-5, dx=3
+    ).encode(
+        x="date:T",
+        color=alt.Color("label:N", legend=None),
+        text="label:N"
+    )
+    chart_layers.extend([ev_rules, ev_labels])
 
 st.subheader(f"📈 {selected_region} — {selected_topic}")
 st.caption(
@@ -239,7 +235,7 @@ st.caption(
     + " Dashed black vertical lines mark reference events."
 )
 
-final_chart = alt.layer(*chart_layers).properties(height=450).interactive()
+final_chart = alt.layer(*chart_layers).resolve_scale(color='independent').properties(height=450).interactive()
 st.altair_chart(final_chart, use_container_width=True)
 
 # ── CONSENSUS HEATMAP (always shown) ─────────────────────────────────────────

@@ -230,12 +230,8 @@ def build_nat_ts(classified, topic_name=None):
         ev_df = pd.DataFrame(ev_list)
         
         if not ev_df.empty:
-            t_min = nat["yearmon_date"].min()
-            t_max = nat["yearmon_date"].max()
-            ev_df = ev_df[(ev_df["date"] >= t_min) & (ev_df["date"] <= t_max)]
-        if not ev_df.empty:
             rules = alt.Chart(ev_df).mark_rule(
-                strokeDash=[4, 3], strokeWidth=1
+                strokeDash=[4, 3], strokeWidth=2
             ).encode(
                 x="date:T",
                 color=alt.Color("label:N", legend=None),
@@ -249,7 +245,7 @@ def build_nat_ts(classified, topic_name=None):
                 color=alt.Color("label:N", legend=None),
                 text="label:N"
             )
-            return alt.layer(bars, rules, labels).properties(height=280)
+            return alt.layer(bars, rules, labels).resolve_scale(color='independent').properties(height=280)
     return bars
 
 
