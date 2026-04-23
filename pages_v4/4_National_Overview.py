@@ -220,14 +220,10 @@ def build_nat_ts(classified, topic_name=None):
     # Overlay explicit National reference events
     if topic_name:
         NATIONAL_EVENTS = [
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2020-02-15"), "label": "Jonglei/GPAA: ICV Massacre", "period": "287+ killed; 8k displaced to Pibor base; Lou Nuer-Murle cycle."},
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2020-08-15"), "label": "Warrap (Tonj): Disarmament", "period": "127 killed in Tonj Town; Tonj North hit by IPC 5 Catastrophe."},
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2022-03-15"), "label": "Unity (Leer): Atrocities", "period": "High-intensity CF; state-sponsored offensive; thousands displaced."},
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2022-11-15"), "label": "Upper Nile (Multiple): 87% Spike", "period": "Record national spike; concentrated in Fashoda/Panyikang."},
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2023-06-15"), "label": "Upper Nile (Renk): Sudan Influx", "period": "900k+ arrivals; Renk/Maban systems overwhelmed (400% cap)."},
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2024-06-15"), "label": "Unity/Upper Nile: 51% Harm Rise", "period": "UN-documented 1,561 killed; 1,019 incidents (National Peak)."},
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2025-02-15"), "label": "Upper Nile (Nasir): Retaliation", "period": "110k+ displaced; evacuation orders; health system collapse."},
-            {"topic": "Conflict and Violence", "date": pd.Timestamp("2025-03-15"), "label": "Jonglei (Akobo): Ethiopia Exodus", "period": "270k+ total displaced; 110k fled Akobo to Ethiopia border."}
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2022-11-15"), "label": "Factional War & ICV", "period": "Upper Nile + Warrap + Jonglei: CF factional war (Kitgwang-Agwelek) + multi-state ICV"},
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2024-06-15"), "label": "Sustained Elevated Baseline", "period": "Unity + Upper Nile (CF) + Jonglei + Lakes + E. Equatoria (ICV): sustained elevated baseline"},
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2025-02-15"), "label": "Nasir -> Akobo Cascade", "period": "Upper Nile + Jonglei: SSPDF offensive (Nasir -> Akobo cascade)"},
+            {"topic": "Conflict and Violence", "date": pd.Timestamp("2025-05-15"), "label": "Massive Multi-Region Collapse", "period": "Upper Nile + Jonglei + W. Equatoria (CF) // Warrap + Lakes + E. Equatoria + Abyei (ICV)"}
         ]
         
         ev_list = [e for e in NATIONAL_EVENTS if e["topic"] == topic_name]
